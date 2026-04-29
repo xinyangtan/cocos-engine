@@ -149,6 +149,14 @@ export class PhysicsSystem2D extends Eventify(System) {
 
     /**
      * @en
+     * The position Iterations for the position constraint solver.
+     * @zh
+     * 粒子迭代更新数。
+     */
+    public particleIterations = 6;
+
+    /**
+     * @en
      * Gets the wrappered object of the physical world through which you can access the actual underlying object.
      * @zh
      * 获取物理世界的封装对象，通过它你可以访问到实际的底层对象。
@@ -288,11 +296,13 @@ export class PhysicsSystem2D extends Eventify(System) {
         const fixedTimeStep = this._fixedTimeStep;
         const velocityIterations = this.velocityIterations;
         const positionIterations = this.positionIterations;
+        const particleIterations = this.particleIterations;
 
         this._accumulator += deltaTime;
         let substepIndex = 0;
         while (substepIndex++ < this._maxSubSteps && this._accumulator > fixedTimeStep) {
-            this.physicsWorld.step(fixedTimeStep, velocityIterations, positionIterations);
+            // @ts-ignore
+            this.physicsWorld.step(fixedTimeStep, velocityIterations, positionIterations, particleIterations);
             this._accumulator -= fixedTimeStep;
         }
 
@@ -343,7 +353,8 @@ export class PhysicsSystem2D extends Eventify(System) {
      * @param fixedTimeStep
      */
     step (fixedTimeStep: number): void {
-        this.physicsWorld.step(fixedTimeStep, this.velocityIterations, this.positionIterations);
+        // @ts-ignore
+        this.physicsWorld.step(fixedTimeStep, this.velocityIterations, this.positionIterations, this.particleIterations);
     }
 
     /**

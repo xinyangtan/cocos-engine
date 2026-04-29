@@ -167,12 +167,13 @@ export class B2PhysicsWorld implements IPhysicsWorld {
         this._world.SetAllowSleeping(true);
     }
 
-    step (deltaTime: number, velocityIterations = 10, positionIterations = 10): void {
+    step (deltaTime: number, velocityIterations = 10, positionIterations = 10, particleIterations = 6): void {
         const animatedBodies = this._animatedBodies;
         for (let i = 0, l = animatedBodies.length; i < l; i++) {
             animatedBodies[i].animate(deltaTime);
         }
-        this._world.Step(deltaTime, velocityIterations, positionIterations);
+        // @ts-ignore
+        this._world.Step(deltaTime, velocityIterations, positionIterations, particleIterations);
     }
 
     raycast (p1: Vec2, p2: Vec2, type: ERaycast2DType, mask: number): RaycastResult2D[] {

@@ -236,8 +236,8 @@ export function wrapper (b2: Box2DModule): typeof B2 {
         DestroyJoint (joint: Joint): void {
             this._obj.DestroyJoint((joint as any)._obj);
         }
-        Step (timeStep: number, velocityIterations: number, positionIterations: number): void {
-            this._obj.Step(timeStep, velocityIterations, positionIterations);
+        Step (timeStep: number, velocityIterations: number, positionIterations: number, particleIterations: number): void {
+            this._obj.Step(timeStep, velocityIterations, positionIterations, particleIterations);
         }
         DebugDraw (): void { this._obj.DebugDraw(); }
         QueryAABB (callback: QueryCallback, aabb: AABB): void {
